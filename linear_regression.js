@@ -33,8 +33,8 @@ function getDerivatives(point) {
 	var error = getError(point.y, point.x);
 
 	return {
-		aDerivative : 2 * error * -point.x,
-		bDerivative : -2 * error
+		aDerivative : error * -point.x,
+		bDerivative : -error
 	};
 }
 
@@ -132,11 +132,12 @@ function getEquation(precision) {
 
 setInterval(function() {
 
-	for(var i = 0; i < 10; i++)
+	for(var i = 0; i < 1000; i++)
 		performRegression();
 	draw();
 
 	equationBox.value = getEquation(precision);
+	errorBox.value = "current error : " + Math.round(getGlobalError()*1000)/1000;
 	
 
 }, 1000/60);
@@ -145,5 +146,6 @@ precision = Math.pow(10, 3);
 scale = 1/40;
 
 equationBox = document.getElementById("equation");
+errorBox = document.getElementById("error");
 
 draw();
